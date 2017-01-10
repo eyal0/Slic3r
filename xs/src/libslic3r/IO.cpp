@@ -6,14 +6,21 @@
 namespace Slic3r { namespace IO {
 
 bool
+STL::read(std::string input_file, TriangleMesh* mesh)
+{
+    mesh->ReadSTLFile(input_file);
+    mesh->check_topology();
+    return true;
+}
+
+bool
 STL::read(std::string input_file, Model* model)
 {
     // TODO: encode file name
     // TODO: check that file exists
     
     TriangleMesh mesh;
-    mesh.ReadSTLFile(input_file);
-    mesh.repair();
+    if (!STL::read(input_file, &mesh)) return false;
     
     if (mesh.facets_count() == 0)
         throw std::runtime_error("This STL file couldn't be read because it's empty.");

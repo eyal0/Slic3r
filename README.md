@@ -53,25 +53,26 @@ Other major features are:
 
 ### How to install?
 
-You can just download a precompiled package from [slic3r.org](http://slic3r.org/);
+You can download a precompiled package from [slic3r.org](http://slic3r.org/);
 it will run without the need for any dependency.
 
-If you want to compile the source yourself just do the following (checkout
-[slic3r.org](http://slic3r.org/download) for more details):
-
-```
-$ git clone https://github.com/alexrj/Slic3r.git
-$ cd Slic3r
-$ perl Build.PL --sudo
-$ perl Build.PL --sudo --gui
-$ ./slic3r.pl
-```
+If you want to compile the source yourself follow the instructions on one of these wiki pages: 
+* [Linux](https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-GNU-Linux)
+* [Windows](https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-Windows)
+* [Mac OSX](https://github.com/alexrj/Slic3r/wiki/Running-Slic3r-from-git-on-OS-X)
 
 ### Can I help?
 
-Sure! Drop me a line at aar@cpan.org. You can also 
-find me in #reprap and in #slic3r on FreeNode with the nickname _Sound_.
-Before sending patches and pull requests contact me to discuss your proposed
+Sure! You can do the following to find things that are available to help with:
+* [Pull Request Milestone](https://github.com/alexrj/Slic3r/milestone/31)
+    * Please comment in the related github issue that you are working on it so that other people know. 
+* Items in the [TODO](https://github.com/alexrj/Slic3r/wiki/TODO) wiki page.
+    * Please comment in the related github issue that you are working on it so that other people know. 
+* Drop me a line at aar@cpan.org.
+* You can also find me (rarely) in #reprap and in #slic3r on [FreeNode](http://webchat.freenode.net) with the nickname _Sound_. Another contributor, _LoH_, is also in both channels. 
+* Add an [issue](https://github.com/alexrj/Slic3r/issues) to the github tracker if it isn't already present.
+
+Before sending patches and pull requests contact me (preferably through opening a github issue or commenting on an existing, related, issue) to discuss your proposed
 changes: this way we'll ensure nobody wastes their time and no conflicts arise
 in development.
 

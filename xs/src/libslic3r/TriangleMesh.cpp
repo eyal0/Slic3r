@@ -89,6 +89,44 @@ TriangleMesh::repair() {
     // admesh fails when repairing empty meshes
     if (this->stl.stats.number_of_facets == 0) return;
     
+    this->check_topology();
+    
+    // remove_unconnected
+    if (stl.stats.connected_facets_3_edge <  stl.stats.number_of_facets) {
+        stl_remove_unconnected_facets(&stl);
+    }
+    
+    // fill_holes
+    if (stl.stats.connected_facets_3_edge < stl.stats.number_of_facets) {
+        stl_fill_holes(&stl);
+        stl_clear_error(&stl);
+    }
+    
+    // normal_directions
+    stl_fix_normal_directions(&stl);
+    
+    // normal_values
+    stl_fix_normal_values(&stl);
+    
+    // always calculate the volume and reverse all normals if volume is negative
+    (void)this->volume();
+    
+    // neighbors
+    stl_verify_neighbors(&stl);
+    
+    this->repaired = true;
+}
+
+float
+TriangleMesh::volume()
+{
+    if (this->stl.stats.volume == -1) stl_calculate_volume(&this->stl);
+    return this->stl.stats.volume;
+}
+
+void
+TriangleMesh::check_topology()
+{
     // checking exact
     stl_check_facets_exact(&stl);
     stl.stats.facets_w_1_bad_edge = (stl.stats.connected_facets_2_edge - stl.stats.connected_facets_3_edge);
@@ -113,31 +151,12 @@ TriangleMesh::repair() {
             }
         }
     }
-    
-    // remove_unconnected
-    if (stl.stats.connected_facets_3_edge <  stl.stats.number_of_facets) {
-        stl_remove_unconnected_facets(&stl);
-    }
-    
-    // fill_holes
-    if (stl.stats.connected_facets_3_edge < stl.stats.number_of_facets) {
-        stl_fill_holes(&stl);
-        stl_clear_error(&stl);
-    }
-    
-    // normal_directions
-    stl_fix_normal_directions(&stl);
-    
-    // normal_values
-    stl_fix_normal_values(&stl);
-    
-    // always calculate the volume and reverse all normals if volume is negative
-    stl_calculate_volume(&stl);
-    
-    // neighbors
-    stl_verify_neighbors(&stl);
-    
-    this->repaired = true;
+}
+
+bool
+TriangleMesh::is_manifold() const
+{
+    return this->stl.stats.connected_facets_3_edge == this->stl.stats.number_of_facets;
 }
 
 void
@@ -346,8 +365,8 @@ TriangleMesh::merge(const TriangleMesh &mesh)
     stl_reallocate(&this->stl);
     
     // copy facets
-    std::copy(mesh.stl.facet_start, mesh.stl.facet_start + mesh.stl.stats.number_of_facets, this->stl.facet_start);
-    std::copy(mesh.stl.neighbors_start, mesh.stl.neighbors_start + mesh.stl.stats.number_of_facets, this->stl.neighbors_start);
+    std::copy(mesh.stl.facet_start, mesh.stl.facet_start + mesh.stl.stats.number_of_facets, this->stl.facet_start + number_of_facets);
+    std::copy(mesh.stl.neighbors_start, mesh.stl.neighbors_start + mesh.stl.stats.number_of_facets, this->stl.neighbors_start + number_of_facets);
     
     // update size
     stl_get_size(&this->stl);
