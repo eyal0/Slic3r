@@ -6,13 +6,7 @@ Vojtech Bubnik, 2016-04-26
 1) Install Mac OS X 10.7 Lion 64 bit with X Code
 ------------------------------------------------
 
-Installation is possible using the http://iatkos.me/ distribution on Virtual Box:
-\\rs.prusa\MacOSX_10.7.2_on_VirtualBox_with_XCode4.pdf
-
-Here is the modified Mac OS X 10.7 Lion 64bit installation image:
-\\rs.prusa\Development\Slic3r-Prusa\How_to_build_on_MacOSX_Lion\iATKOS_L2
-
-Naturally, it is possible to develop on a real Mac. On Mac, two commercial solutions are available to legally virtualize MacOS on MacOS:
+One has to build the OSX Slic3r on a real Mac, either directly on the system, or on a virtualized OSX. On Mac, two commercial solutions are available to legally virtualize MacOS on MacOS:
 http://www.parallels.com/eu/products/desktop/
 http://www.vmware.com/products/workstation/
 
