@@ -484,7 +484,8 @@ TriangleMeshSlicer::_slice_do(size_t facet_idx, std::vector<IntersectionLines>* 
     #endif
     
     for (std::vector<float>::const_iterator it = min_layer; it != max_layer + 1; ++it) {
-        std::vector<float>::size_type layer_idx = it - z.begin();
+      std::vector<float>::size_type layer_idx = it - z.begin();
+      printf("layer\n");
         this->slice_facet(*it / SCALING_FACTOR, facet, facet_idx, min_z, max_z, &(*lines)[layer_idx], lines_mutex);
     }
 }
@@ -497,10 +498,10 @@ TriangleMeshSlicer::slice(const std::vector<float> &z, std::vector<ExPolygons>* 
     
     layers->resize(z.size());
     for (std::vector<Polygons>::const_iterator loops = layers_p.begin(); loops != layers_p.end(); ++loops) {
-        #ifdef SLIC3R_TRIANGLEMESH_DEBUG
+      //#ifdef SLIC3R_TRIANGLEMESH_DEBUG
         size_t layer_id = loops - layers_p.begin();
         printf("Layer " PRINTF_ZU " (slice_z = %.2f):\n", layer_id, z[layer_id]);
-        #endif
+        //#endif
         
         this->make_expolygons(*loops, &(*layers)[ loops - layers_p.begin() ]);
     }
