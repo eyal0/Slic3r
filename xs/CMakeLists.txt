@@ -7,12 +7,12 @@ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules/)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     # Workaround for an old CMake, which does not understand CMAKE_CXX_STANDARD.
-    add_compile_options(-std=c++11 -Wall)
+    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-std=c++11>" "-Wall")
 endif()
 
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
     # Adding -fext-numeric-literals to enable GCC extensions on definitions of quad float literals, which are required by Boost.
-    add_compile_options(-fext-numeric-literals)
+    add_compile_options("$<$<COMPILE_LANGUAGE:CXX>:-fext-numeric-literals>")
 endif()
 
 # Where all the bundled libraries reside?
