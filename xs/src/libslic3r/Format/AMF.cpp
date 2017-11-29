@@ -503,7 +503,7 @@ bool load_amf(const char *path, Model *model)
         }
         int done = feof(pFile);
         if (XML_Parse(parser, buff, len, done) == XML_STATUS_ERROR) {
-            printf("AMF parser: Parse error at line %ul:\n%s\n",
+            printf("AMF parser: Parse error at line %lu:\n%s\n",
                   XML_GetCurrentLineNumber(parser),
                   XML_ErrorString(XML_GetErrorCode(parser)));
             break;
@@ -571,7 +571,7 @@ bool store_amf(const char *path, Model *model)
             auto &stl = volume->mesh.stl;
             if (stl.v_shared == nullptr)
                 stl_generate_shared_vertices(&stl);
-            for (size_t i = 0; i < stl.stats.shared_vertices; ++ i) {
+            for (size_t i = 0; int(i) < stl.stats.shared_vertices; ++ i) {
                 fprintf(file, "         <vertex>\n");
                 fprintf(file, "           <coordinates>\n");
                 fprintf(file, "             <x>%f</x>\n", stl.v_shared[i].x);

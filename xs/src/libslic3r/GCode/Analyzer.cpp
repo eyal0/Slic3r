@@ -76,12 +76,14 @@ static inline bool is_eol(const char c) { return c == 0 || c == '\r' || c == '\n
 // Is it a white space or end of line?
 static inline bool is_ws_or_eol(const char c) { return is_ws(c) || is_eol(c); };
 
+/*
 // Eat whitespaces.
 static void eatws(const char *&line)
 {
     while (is_ws(*line)) 
         ++ line;
 }
+*/
 
 // Parse an int starting at the current position of a line.
 // If succeeded, the line pointer is advanced.

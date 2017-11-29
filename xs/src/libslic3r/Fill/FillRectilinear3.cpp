@@ -849,8 +849,6 @@ static inline IntersectionTypeOtherVLine intersection_type_on_prev_next_vertical
 {
     // This routine will propose a connecting line even if the connecting perimeter segment intersects 
     // iVertical line multiple times before reaching iIntersectionOther.
-    if (iIntersectionOther == -1)
-        return INTERSECTION_TYPE_OTHER_VLINE_UNDEFINED;
     assert(dir_is_next ? (iVerticalLine + 1 < segs.size()) : (iVerticalLine > 0));
     const SegmentedIntersectionLine &il_this      = segs[iVerticalLine];
     const SegmentIntersection       &itsct_this   = il_this.intersections[iIntersection];
@@ -1284,7 +1282,7 @@ static bool fill_hatching_segments_legacy(
             int iSegAbove = -1;
             int iSegBelow = -1;
             {
-                SegmentIntersection::SegmentIntersectionType type_crossing = (intrsctn->type == SegmentIntersection::INNER_LOW) ?
+//                SegmentIntersection::SegmentIntersectionType type_crossing = (intrsctn->type == SegmentIntersection::INNER_LOW) ?
                     SegmentIntersection::INNER_HIGH : SegmentIntersection::INNER_LOW;
                 // Does the perimeter intersect the current vertical line above intrsctn?
                 for (size_t i = i_intersection + 1; i + 1 < seg.intersections.size(); ++ i)

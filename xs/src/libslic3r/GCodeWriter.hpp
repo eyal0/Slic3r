@@ -16,8 +16,9 @@ public:
     bool multiple_extruders;
     
     GCodeWriter() : 
-        multiple_extruders(false), m_extrusion_axis("E"), m_extruder(nullptr),
+        multiple_extruders(false), m_extrusion_axis("E"),
         m_single_extruder_multi_material(false),
+	m_extruder(nullptr),
         m_last_acceleration(0), m_last_fan_speed(0), 
         m_last_bed_temperature(0), m_last_bed_temperature_reached(true), 
         m_lifted(0)
