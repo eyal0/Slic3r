@@ -98,11 +98,14 @@ std::vector<std::string> scan_serial_ports()
 #else
     // UNIX and OS X
     std::initializer_list<const char*> prefixes { "ttyUSB" , "ttyACM", "tty.", "cu.", "rfcomm" };
-    for (auto &dir_entry : boost::filesystem::directory_iterator(boost::filesystem::path("/dev"))) {
-        std::string name = dir_entry.path().filename().string();
+    boost::filesystem::directory_iterator end_iter;
+    for (boost::filesystem::directory_iterator dir_entry(boost::filesystem::path("/dev"));
+        dir_entry != end_iter;
+        ++dir_entry) {
+        std::string name = dir_entry->path().filename().string();
         for (const char *prefix : prefixes) {
             if (boost::starts_with(name, prefix)) {
-                out.emplace_back(dir_entry.path().string());
+                out.emplace_back(dir_entry->path().string());
                 break;
             }
         }

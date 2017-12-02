@@ -251,14 +251,17 @@ void PresetCollection::load_presets(const std::string &dir_path, const std::stri
     m_presets.erase(m_presets.begin()+1, m_presets.end());
     t_config_option_keys keys = this->default_preset().config.keys();
     std::string errors_cummulative;
-	for (auto &dir_entry : boost::filesystem::directory_iterator(dir))
-        if (boost::filesystem::is_regular_file(dir_entry.status()) && boost::algorithm::iends_with(dir_entry.path().filename().string(), ".ini")) {
-            std::string name = dir_entry.path().filename().string();
+    boost::filesystem::directory_iterator end_iter;
+    for (boost::filesystem::directory_iterator dir_entry(dir);
+         dir_entry != end_iter;
+         ++dir_entry)
+            if (boost::filesystem::is_regular_file(dir_entry->status()) && boost::algorithm::iends_with(dir_entry->path().filename().string(), ".ini")) {
+            std::string name = dir_entry->path().filename().string();
             // Remove the .ini suffix.
             name.erase(name.size() - 4);
             try {
                 Preset preset(m_type, name, false);
-                preset.file = dir_entry.path().string();
+                preset.file = dir_entry->path().string();
                 preset.load(keys);
                 m_presets.emplace_back(preset);
             } catch (const std::runtime_error &err) {

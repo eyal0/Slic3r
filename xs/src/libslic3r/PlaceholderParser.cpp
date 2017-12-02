@@ -622,7 +622,7 @@ namespace client
             spirit::double_type         double_;
             spirit::ascii::string_type  string;
             spirit::repository::qi::iter_pos_type iter_pos;
-            auto                        kw = spirit::repository::qi::distinct(qi::copy(alnum | '_'));
+            auto                        kw = spirit::repository::qi::distinct(boost::proto::deep_copy(alnum | '_'));
 
             qi::_val_type               _val;
             qi::_1_type                 _1;
